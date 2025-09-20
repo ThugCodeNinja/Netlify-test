@@ -47,4 +47,13 @@ document.addEventListener('DOMContentLoaded', () => {
             heroImg.style.transform = `translateY(${offset}px) scale(1.02)`;
         });
     }
+
+    // Mobile navigation toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navList = document.querySelector('.nav-list');
+    if(navToggle && navList) {
+        navToggle.addEventListener('click', () => {
+            navList.classList.toggle('open');
+        });
+    }
 });
