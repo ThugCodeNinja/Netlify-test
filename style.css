@@ -1,0 +1,61 @@
+body {
+}
+nav a.active, nav a:hover {
+text-decoration: underline;
+}
+.hero {
+text-align: center;
+padding: 3rem 1rem;
+background: linear-gradient(to right, #b388eb, #f3e5f5);
+color: #333;
+}
+.content {
+max-width: 800px;
+margin: 2rem auto;
+padding: 1rem;
+}
+.post {
+background: white;
+padding: 1rem;
+border-radius: 10px;
+box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+margin-bottom: 1rem;
+}
+.post h3 {
+margin-top: 0;
+}
+.gallery-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+gap: 1rem;
+padding: 1rem;
+}
+.gallery-grid img {
+width: 100%;
+border-radius: 10px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.wish-card {
+background: white;
+padding: 1.5rem;
+margin: 1rem auto;
+max-width: 700px;
+border-radius: 12px;
+box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+footer {
+background: #f3e5f5;
+text-align: center;
+padding: 1rem;
+font-size: 0.9rem;
+}
+
+section { 
+    opacity: 0; 
+    transform: translateY(30px); 
+    transition: all 0.8s ease; 
+}
+section.visible { 
+    opacity: 1; 
+    transform: translateY(0); 
+}
