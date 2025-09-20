@@ -4,20 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Birthday Wishes - Voice of Snehal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
+<script>
+    // Dynamically load header for all pages
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.body.insertAdjacentHTML('afterbegin', data);
+            });
+    });
+</script>
 </head>
 <body>
-<header>
+<!-- Header will be loaded dynamically -->
 <h1>Birthday Wishes</h1>
-<nav>
-<ul>
-<li><a href="index.html">Home</a></li>
-<li><a href="wishes.html" class="active">Birthday Wishes</a></li>
-</ul>
-</nav>
-</header>
-
-
 <section class="wishes">
 <div class="wish-card">
 <h3>From Your Husband</h3>
