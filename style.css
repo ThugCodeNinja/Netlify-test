@@ -1,13 +1,118 @@
 body {
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+    color: #2d1e2f;
+    margin: 0;
+    min-height: 100vh;
 }
 nav a.active, nav a:hover {
 text-decoration: underline;
 }
+.site-header {
+    background: #7c43bd;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(124,67,189,0.08);
+    padding: 0.5rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.site-header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+.site-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+.nav-list a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s;
+    position: relative;
+}
+.nav-list a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: width 0.3s;
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+}
+.nav-list a:hover, .nav-list a.active {
+    color: #ffd6e0;
+}
+.nav-list a:hover::after, .nav-list a.active::after {
+    width: 100%;
+}
 .hero {
-text-align: center;
-padding: 3rem 1rem;
-background: linear-gradient(to right, #b388eb, #f3e5f5);
-color: #333;
+    position: relative;
+    text-align: center;
+    padding: 0;
+    margin-bottom: 2rem;
+}
+.hero-bg {
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(90deg, #b388eb 60%, #f3e5f5 100%);
+}
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+    filter: blur(2px) brightness(0.9);
+    animation: heroFadeIn 1.5s ease;
+}
+@keyframes heroFadeIn {
+    from { opacity: 0; transform: scale(1.05); }
+    to { opacity: 0.7; transform: scale(1); }
+}
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255,255,255,0.85);
+    padding: 2rem 3rem;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(124,67,189,0.12);
+    animation: fadeUp 1.2s cubic-bezier(.77,0,.18,1) 0.3s both;
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.fancy-section {
+    background: rgba(255,255,255,0.95);
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(124,67,189,0.08);
+    margin: 2rem auto;
+    padding: 2rem 1.5rem;
+    max-width: 900px;
+    animation: fadeUp 1.2s cubic-bezier(.77,0,.18,1) both;
 }
 .content {
 max-width: 800px;
@@ -23,39 +128,124 @@ margin-bottom: 1rem;
 }
 .post h3 {
 margin-top: 0;
+color: #7c43bd;
+}
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+}
+.post-card {
+    background: linear-gradient(120deg, #f3e5f5 60%, #e1bee7 100%);
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(124,67,189,0.10);
+    padding: 1.5rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+.post-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 8px 32px rgba(124,67,189,0.18);
+}
+.btn {
+    display: inline-block;
+    background: #7c43bd;
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 1rem;
+    box-shadow: 0 2px 8px rgba(124,67,189,0.10);
+    transition: background 0.3s, transform 0.2s;
+}
+.btn:hover {
+    background: #b388eb;
+    color: #fff;
+    transform: scale(1.07);
+}
+.gallery {
+    text-align: center;
 }
 .gallery-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-gap: 1rem;
-padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+.gallery-grid figure {
+    background: linear-gradient(120deg, #e1bee7 60%, #f3e5f5 100%);
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(124,67,189,0.10);
+    padding: 1rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.gallery-grid figure:hover {
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: 0 8px 32px rgba(124,67,189,0.18);
 }
 .gallery-grid img {
-width: 100%;
-border-radius: 10px;
-box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: filter 0.3s;
+}
+.gallery-grid img:hover {
+    filter: brightness(1.08) saturate(1.2);
+}
+.gallery-grid figcaption {
+    margin-top: 0.7rem;
+    font-size: 1rem;
+    color: #7c43bd;
+    font-weight: 500;
 }
 .wish-card {
-background: white;
-padding: 1.5rem;
-margin: 1rem auto;
-max-width: 700px;
-border-radius: 12px;
-box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    background: white;
+    padding: 1.5rem;
+    margin: 1rem auto;
+    max-width: 700px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    animation: fadeUp 1.2s cubic-bezier(.77,0,.18,1) both;
 }
-footer {
-background: #f3e5f5;
-text-align: center;
-padding: 1rem;
-font-size: 0.9rem;
+footer, .site-footer {
+    background: linear-gradient(90deg, #7c43bd 60%, #b388eb 100%);
+    color: #fff;
+    text-align: center;
+    padding: 1.5rem 0;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    box-shadow: 0 -2px 8px rgba(124,67,189,0.08);
 }
 
 section { 
     opacity: 0; 
     transform: translateY(30px); 
-    transition: all 0.8s ease; 
+    transition: all 0.8s cubic-bezier(.77,0,.18,1); 
 }
 section.visible { 
     opacity: 1; 
     transform: translateY(0); 
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background: #e1bee7;
+}
+::-webkit-scrollbar-thumb {
+    background: #7c43bd;
+    border-radius: 8px;
+}
+
+@media (max-width: 700px) {
+    .site-header .container, .fancy-section {
+        padding: 0 1rem;
+    }
+    .hero-content {
+        padding: 1.2rem 1rem;
+    }
+    .post-grid, .gallery-grid {
+        grid-template-columns: 1fr;
+    }
 }
