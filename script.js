@@ -134,6 +134,113 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+    // Shared Birthday Quiz using Netlify Function
+    const QUIZ_API = '/.netlify/functions/quiz';
+    let quizQuestions = [];
+    async function loadQuizQuestions() {
+        const res = await fetch(QUIZ_API);
+        quizQuestions = await res.json();
+    }
+    async function addQuizQuestion(q, a) {
+        await fetch(QUIZ_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ q, a })
+        });
+        await loadQuizQuestions();
+    }
+    const addQuizQBtn = document.getElementById('add-quiz-q');
+    if (addQuizQBtn) {
+        addQuizQBtn.addEventListener('click', async () => {
+            const q = document.getElementById('new-quiz-q').value.trim();
+            const a = document.getElementById('new-quiz-a').value.trim();
+            if (q && a) {
+                await addQuizQuestion(q, a);
+                document.getElementById('new-quiz-q').value = '';
+                document.getElementById('new-quiz-a').value = '';
+            }
+        });
+    }
+    // Shared Memory Puzzle using Netlify Function
+    const PUZZLE_API = '/.netlify/functions/memorypuzzles';
+    let memoryQuestions = [];
+    async function loadMemoryPuzzles() {
+        const res = await fetch(PUZZLE_API);
+        memoryQuestions = await res.json();
+    }
+    async function addMemoryPuzzle(story, answer) {
+        await fetch(PUZZLE_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ story, answer })
+        });
+        await loadMemoryPuzzles();
+    }
+    const addPuzzleBtn = document.getElementById('add-puzzle');
+    if (addPuzzleBtn) {
+        addPuzzleBtn.addEventListener('click', async () => {
+            const story = document.getElementById('new-puzzle-story').value.trim();
+            const answer = document.getElementById('new-puzzle-answer').value.trim();
+            if (story && answer) {
+                await addMemoryPuzzle(story, answer);
+                document.getElementById('new-puzzle-story').value = '';
+                document.getElementById('new-puzzle-answer').value = '';
+            }
+        });
+    }
+    // Update quiz and memory games to use shared data
+    async function showQuiz() {
+        await loadQuizQuestions();
+        let current = 0;
+        let score = 0;
+        quizBtn.addEventListener('click', () => {
+            quizBtn.style.display = 'none';
+            quizArea.style.display = 'block';
+            showQuestion();
+        });
+        function showQuestion() {
+            if (current < quizQuestions.length) {
+                quizArea.innerHTML = `<p>${quizQuestions[current].q}</p><input type='text' id='quiz-answer' class='memory-input'><button id='submit-answer' class='btn'>Submit</button>`;
+                document.getElementById('submit-answer').onclick = () => {
+                    const userAns = document.getElementById('quiz-answer').value.trim().toLowerCase();
+                    if (userAns === quizQuestions[current].a.toLowerCase()) {
+                        score++;
+                    }
+                    current++;
+                    showQuestion();
+                };
+            } else {
+                quizArea.innerHTML = `<p>Quiz complete! You scored ${score} out of ${quizQuestions.length} 🎉</p><button id='reset-score' class='btn'>Reset Score</button>`;
+                document.getElementById('reset-score').onclick = () => {
+                    score = 0;
+                    quizBtn.style.display = '';
+                    quizArea.style.display = 'none';
+                };
+            }
+        }
+    }
+    if (quizBtn && quizArea) showQuiz();
+    async function showMemoryGame() {
+        await loadMemoryPuzzles();
+        let memCurrent = 0, memScore = 0;
+        function showMemoryQuestion() {
+            if (memCurrent < memoryQuestions.length) {
+                memoryGameArea.innerHTML = `<p>${memoryQuestions[memCurrent].story}</p><input type='text' id='mem-answer' class='memory-input'><button id='mem-submit' class='btn'>Submit</button>`;
+                document.getElementById('mem-submit').onclick = () => {
+                    const userAns = document.getElementById('mem-answer').value.trim().toLowerCase();
+                    if (userAns === memoryQuestions[memCurrent].answer.toLowerCase()) {
+                        memScore++;
+                    }
+                    memCurrent++;
+                    showMemoryQuestion();
+                };
+            } else {
+                memoryGameArea.innerHTML = `<p>Game complete! You scored ${memScore} out of ${memoryQuestions.length} 🎉</p>`;
+            }
+        }
+        showMemoryQuestion();
+    }
+    if (memoryGameArea) showMemoryGame();
     // Shared Memory Wall using Netlify Function
     const memoryBtn = document.getElementById('add-memory');
     const memoryInput = document.getElementById('memory-input');
@@ -160,55 +267,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify({ memory: val })
                 });
                 memoryInput.value = '';
-                loadMemoriesShared();
             }
         });
-    }
-
-    // Birthday Bingo functionality
-    const bingoItems = [
-        "Snehal's favorite book", "Family trip to Goa", "Diwali celebration", "Homemade khichdi", "Lavender saree", "Spiritual retreat", "Laughing with friends", "Cooking for family", "Childhood story", "Helping a neighbor", "Birthday cake", "Favorite festival", "Memorable advice", "Garden walk", "Listening to music", "Sharing wisdom"
-    ];
-    const bingoBoard = document.getElementById('bingo-board');
-    if (bingoBoard) {
-        let board = '';
-        bingoItems.forEach((item, i) => {
-            board += `<div class='bingo-cell' data-idx='${i}'>${item}</div>`;
-        });
-        bingoBoard.innerHTML = board;
-        bingoBoard.style.display = 'grid';
-        bingoBoard.style.gridTemplateColumns = 'repeat(4, 1fr)';
-        bingoBoard.style.gap = '8px';
-        document.querySelectorAll('.bingo-cell').forEach(cell => {
-            cell.onclick = () => {
-                cell.classList.toggle('marked');
-            };
-        });
-    }
-    // Guess the Memory functionality
-    const memoryGameArea = document.getElementById('memory-game-area');
-    const memoryQuestions = [
-        { story: "Snehal wore her favorite lavender saree and cooked khichdi for everyone. Which year was this?", answer: "2022" },
-        { story: "The family trip to Goa was filled with laughter and beach walks. Which event was this?", answer: "Family Vacation" },
-        { story: "Snehal gave memorable advice during Diwali. What was the advice about?", answer: "Gratitude" }
-    ];
-    let memCurrent = 0, memScore = 0;
-    function showMemoryQuestion() {
-        if (memCurrent < memoryQuestions.length) {
-            memoryGameArea.innerHTML = `<p>${memoryQuestions[memCurrent].story}</p><input type='text' id='mem-answer' class='memory-input'><button id='mem-submit' class='btn'>Submit</button>`;
-            document.getElementById('mem-submit').onclick = () => {
-                const userAns = document.getElementById('mem-answer').value.trim().toLowerCase();
-                if (userAns === memoryQuestions[memCurrent].answer.toLowerCase()) {
-                    memScore++;
-                }
-                memCurrent++;
-                showMemoryQuestion();
-            };
-        } else {
-            memoryGameArea.innerHTML = `<p>Game complete! You scored ${memScore} out of ${memoryQuestions.length} 🎉</p>`;
-        }
-    }
-    if (memoryGameArea) {
-        showMemoryQuestion();
+        setInterval(loadMemoriesShared, 3000); // Poll every 3 seconds
     }
 });
