@@ -330,3 +330,24 @@ section.visible {
         align-items: center;
     }
 }
+.bingo-board {
+    margin: 1rem 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+.bingo-cell {
+    background: #f3e5f5;
+    border-radius: 8px;
+    padding: 0.7rem;
+    text-align: center;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(124,67,189,0.10);
+    transition: background 0.2s, color 0.2s;
+}
+.bingo-cell.marked {
+    background: #b388eb;
+    color: #fff;
+    font-weight: bold;
+}
