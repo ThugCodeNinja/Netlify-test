@@ -56,4 +56,79 @@ document.addEventListener('DOMContentLoaded', () => {
             navList.classList.toggle('open');
         });
     }
+
+    // Gallery modal/lightbox functionality
+    const galleryImages = document.querySelectorAll('.gallery-img');
+    const modal = document.getElementById('img-modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalCaption = document.getElementById('modal-caption');
+    const closeModal = document.querySelector('.close-modal');
+
+    if (galleryImages.length && modal && modalImg && closeModal) {
+        galleryImages.forEach(img => {
+            img.addEventListener('click', () => {
+                modal.style.display = 'block';
+                modalImg.src = img.src;
+                modalCaption.textContent = img.alt;
+            });
+        });
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
+
+    // Birthday Quiz functionality
+    const quizBtn = document.getElementById('start-quiz');
+    const quizArea = document.getElementById('quiz-area');
+    if (quizBtn && quizArea) {
+        const questions = [
+            { q: "What is Snehal's favorite hobby?", a: "Reading spiritual books" },
+            { q: "Which city was Snehal born in?", a: "Pune" },
+            { q: "Snehal's favorite color?", a: "Lavender" },
+            { q: "What is Snehal's go-to comfort food?", a: "Homemade khichdi" },
+            { q: "Snehal's favorite festival?", a: "Diwali" }
+        ];
+        let current = 0;
+        let score = 0;
+        quizBtn.addEventListener('click', () => {
+            quizBtn.style.display = 'none';
+            quizArea.style.display = 'block';
+            showQuestion();
+        });
+        function showQuestion() {
+            if (current < questions.length) {
+                quizArea.innerHTML = `<p>${questions[current].q}</p><input type='text' id='quiz-answer' class='memory-input'><button id='submit-answer' class='btn'>Submit</button>`;
+                document.getElementById('submit-answer').onclick = () => {
+                    const userAns = document.getElementById('quiz-answer').value.trim().toLowerCase();
+                    if (userAns === questions[current].a.toLowerCase()) {
+                        score++;
+                    }
+                    current++;
+                    showQuestion();
+                };
+            } else {
+                quizArea.innerHTML = `<p>Quiz complete! You scored ${score} out of ${questions.length} 🎉</p>`;
+            }
+        }
+    }
+    // Memory Wall functionality
+    const memoryBtn = document.getElementById('add-memory');
+    const memoryInput = document.getElementById('memory-input');
+    const memoryList = document.getElementById('memory-list');
+    if (memoryBtn && memoryInput && memoryList) {
+        memoryBtn.addEventListener('click', () => {
+            const val = memoryInput.value.trim();
+            if (val) {
+                const li = document.createElement('li');
+                li.textContent = val;
+                memoryList.appendChild(li);
+                memoryInput.value = '';
+            }
+        });
+    }
 });

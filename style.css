@@ -103,6 +103,10 @@ text-decoration: underline;
     border-radius: 18px;
     box-shadow: 0 8px 32px rgba(124,67,189,0.12);
     animation: fadeUp 1.2s cubic-bezier(.77,0,.18,1) 0.3s both;
+    text-align: center;
+    width: fit-content;
+    min-width: 280px;
+    max-width: 90vw;
 }
 @keyframes fadeUp {
     from { opacity: 0; transform: translateY(40px); }
@@ -249,12 +253,57 @@ section.visible {
     font-size: 2rem;
     cursor: pointer;
 }
+.img-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background: rgba(44, 19, 56, 0.85);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.img-modal .modal-content {
+    margin: 5vh auto;
+    display: block;
+    max-width: 90vw;
+    max-height: 70vh;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(124,67,189,0.18);
+    background: #fff;
+}
+.img-modal #modal-caption {
+    color: #fff;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.close-modal {
+    position: absolute;
+    top: 2vh;
+    right: 4vw;
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2100;
+    transition: color 0.2s;
+}
+.close-modal:hover {
+    color: #ffd6e0;
+}
 @media (max-width: 700px) {
     .site-header .container, .fancy-section {
         padding: 0 1rem;
     }
     .hero-content {
         padding: 1.2rem 1rem;
+        min-width: unset;
+        max-width: 98vw;
     }
     .post-grid, .gallery-grid {
         grid-template-columns: 1fr;
