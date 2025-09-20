@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Games - Voice of Snehal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.body.insertAdjacentHTML('afterbegin', data);
+            });
+    });
+</script>
+</head>
+<body>
+<!-- Header will be loaded dynamically -->
+<main>
+    <section class="content fancy-section">
+        <h2><i class="fa-solid fa-plus"></i> Add Birthday Quiz Question</h2>
+        <form id="add-quiz-form" class="game-form">
+            <input type="text" id="add-quiz-q" class="memory-input" placeholder="Enter your quiz question..." required>
+            <input type="text" id="add-quiz-a" class="memory-input" placeholder="Enter the answer..." required>
+            <button type="submit" class="btn">Add Quiz Question</button>
+        </form>
+        <div id="quiz-success" class="success-msg"></div>
+    </section>
+    <section class="content fancy-section">
+        <h2><i class="fa-solid fa-plus"></i> Add Guess the Memory Puzzle</h2>
+        <form id="add-puzzle-form" class="game-form">
+            <input type="text" id="add-puzzle-story" class="memory-input" placeholder="Enter the story or prompt..." required>
+            <input type="text" id="add-puzzle-answer" class="memory-input" placeholder="Enter the answer..." required>
+            <button type="submit" class="btn">Add Memory Puzzle</button>
+        </form>
+        <div id="puzzle-success" class="success-msg"></div>
+    </section>
+</main>
+<script src="script.js"></script>
+<script>
+// Add Quiz Question
+const quizForm = document.getElementById('add-quiz-form');
+const quizSuccess = document.getElementById('quiz-success');
+quizForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const q = document.getElementById('add-quiz-q').value.trim();
+    const a = document.getElementById('add-quiz-a').value.trim();
+    if (q && a) {
+        await fetch('/.netlify/functions/quiz', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ q, a })
+        });
+        quizSuccess.textContent = 'Quiz question added!';
+        quizForm.reset();
+        setTimeout(() => quizSuccess.textContent = '', 2000);
+    }
+});
+// Add Memory Puzzle
+const puzzleForm = document.getElementById('add-puzzle-form');
+const puzzleSuccess = document.getElementById('puzzle-success');
+puzzleForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const story = document.getElementById('add-puzzle-story').value.trim();
+    const answer = document.getElementById('add-puzzle-answer').value.trim();
+    if (story && answer) {
+        await fetch('/.netlify/functions/memorypuzzles', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ story, answer })
+        });
+        puzzleSuccess.textContent = 'Memory puzzle added!';
+        puzzleForm.reset();
+        setTimeout(() => puzzleSuccess.textContent = '', 2000);
+    }
+});
+</script>
+</body>
+</html>

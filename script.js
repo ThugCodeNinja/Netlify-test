@@ -220,12 +220,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     if (quizBtn && quizArea) showQuiz();
+    // Birthday Bingo functionality
+    const bingoItems = [
+        "Snehal's favorite book", "Family trip to Goa", "Diwali celebration", "Homemade khichdi", "Lavender saree", "Spiritual retreat", "Laughing with friends", "Cooking for family", "Childhood story", "Helping a neighbor", "Birthday cake", "Favorite festival", "Memorable advice", "Garden walk", "Listening to music", "Sharing wisdom"
+    ];
+    const bingoBoard = document.getElementById('bingo-board');
+    if (bingoBoard) {
+        let board = '';
+        bingoItems.forEach((item, i) => {
+            board += `<div class='bingo-cell' data-idx='${i}'>${item}</div>`;
+        });
+        bingoBoard.innerHTML = board;
+        bingoBoard.style.display = 'grid';
+        bingoBoard.style.gridTemplateColumns = 'repeat(4, 1fr)';
+        bingoBoard.style.gap = '8px';
+        document.querySelectorAll('.bingo-cell').forEach(cell => {
+            cell.onclick = () => {
+                cell.classList.toggle('marked');
+            };
+        });
+    }
+    // Guess the Memory functionality
+    const memoryGameArea = document.getElementById('memory-game-area');
+    async function loadMemoryPuzzles() {
+        const res = await fetch(PUZZLE_API);
+        memoryQuestions = await res.json();
+    }
     async function showMemoryGame() {
         await loadMemoryPuzzles();
         let memCurrent = 0, memScore = 0;
         function showMemoryQuestion() {
             if (memCurrent < memoryQuestions.length) {
-                memoryGameArea.innerHTML = `<p>${memoryQuestions[memCurrent].story}</p><input type='text' id='mem-answer' class='memory-input'><button id='mem-submit' class='btn'>Submit</button>`;
+                memoryGameArea.innerHTML = `<p>${memoryQuestions[memCurrent].story}</p><input type='text' id='mem-answer' class='memory-input' placeholder='Your answer...'><button id='mem-submit' class='btn'>Submit</button>`;
                 document.getElementById('mem-submit').onclick = () => {
                     const userAns = document.getElementById('mem-answer').value.trim().toLowerCase();
                     if (userAns === memoryQuestions[memCurrent].answer.toLowerCase()) {

@@ -330,6 +330,35 @@ section.visible {
         align-items: center;
     }
 }
+.memory-input {
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #b388eb;
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+    width: 100%;
+    box-sizing: border-box;
+    background: #f3e5f5;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.memory-input:focus {
+    border-color: #7c43bd;
+    box-shadow: 0 2px 8px rgba(124,67,189,0.10);
+    outline: none;
+}
+.game-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+.success-msg {
+    color: #388e3c;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    text-align: center;
+}
 .bingo-board {
     margin: 1rem 0;
     display: grid;
