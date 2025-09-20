@@ -134,13 +134,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-    // Memory Wall functionality with persistent memories
+    // Shared Memory Wall using Netlify Function
     const memoryBtn = document.getElementById('add-memory');
     const memoryInput = document.getElementById('memory-input');
     const memoryList = document.getElementById('memory-list');
-    const MEMORY_KEY = 'snehal_memories';
-    function loadMemories() {
-        const memories = JSON.parse(localStorage.getItem(MEMORY_KEY) || '[]');
+    const MEM_API = '/.netlify/functions/memories';
+    async function loadMemoriesShared() {
+        const res = await fetch(MEM_API);
+        const memories = await res.json();
         memoryList.innerHTML = '';
         memories.forEach(val => {
             const li = document.createElement('li');
@@ -149,15 +150,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     if (memoryBtn && memoryInput && memoryList) {
-        loadMemories();
-        memoryBtn.addEventListener('click', () => {
+        loadMemoriesShared();
+        memoryBtn.addEventListener('click', async () => {
             const val = memoryInput.value.trim();
             if (val) {
-                const memories = JSON.parse(localStorage.getItem(MEMORY_KEY) || '[]');
-                memories.push(val);
-                localStorage.setItem(MEMORY_KEY, JSON.stringify(memories));
-                loadMemories();
+                await fetch(MEM_API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ memory: val })
+                });
                 memoryInput.value = '';
+                loadMemoriesShared();
             }
         });
     }
