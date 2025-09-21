@@ -384,9 +384,9 @@ section.visible {
     position: fixed;
     top: 0;
     left: 0;
-    width: 260px;
+    width: 240px;
     height: 100vh;
-    background: linear-gradient(135deg, #7c43bd 60%, #b388eb 100%);
+    background: #7c43bd;
     color: #fff;
     box-shadow: 2px 0 16px rgba(124,67,189,0.10);
     z-index: 1000;
@@ -394,17 +394,18 @@ section.visible {
     flex-direction: column;
     align-items: center;
     padding-top: 2rem;
-    transition: width 0.3s;
+    transition: width 0.3s cubic-bezier(.77,0,.18,1);
+    overflow-x: hidden;
 }
 .sidebar.collapsed {
-    width: 70px !important;
+    width: 60px;
 }
 body {
-    margin-left: 260px;
-    transition: margin-left 0.3s;
+    margin-left: 240px;
+    transition: margin-left 0.3s cubic-bezier(.77,0,.18,1);
 }
 body.sidebar-collapsed {
-    margin-left: 70px !important;
+    margin-left: 60px;
 }
 .sidebar-header {
     width: 100%;
@@ -414,6 +415,12 @@ body.sidebar-collapsed {
     gap: 0.5rem;
 }
 .sidebar-header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #fff;
     transition: opacity 0.3s;
 }
 .sidebar.collapsed .sidebar-header h1 {
@@ -453,23 +460,15 @@ body.sidebar-collapsed {
     padding: 0.7rem 1.2rem;
     border-radius: 8px;
     transition: background 0.2s, color 0.2s;
-}
-.sidebar-nav a i {
-    min-width: 24px;
-    text-align: center;
-}
-.sidebar-nav a span {
-    margin-left: 0.5rem;
-    transition: opacity 0.3s;
+    white-space: nowrap;
 }
 .sidebar.collapsed .sidebar-nav a span {
-    opacity: 0;
-    pointer-events: none;
+    display: none;
 }
 .sidebar.collapsed .sidebar-nav a {
     justify-content: center;
     padding: 0.7rem 0.5rem;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
 }
 .sidebar-nav a:hover, .sidebar-nav a.active {
     background: #ffd6e0;
@@ -515,16 +514,17 @@ body.sidebar-collapsed {
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     position: relative;
     animation: popBalloon 2s infinite alternate;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
 }
 .birthday-banner .balloon:nth-child(1) {
-    background: radial-gradient(circle at 60% 40%, #ffd700 70%, #ffb347 100%); /* Gold */
+    background: #ffd700; /* Gold */
 }
 .birthday-banner .balloon:nth-child(2) {
-    background: radial-gradient(circle at 60% 40%, #40e0d0 70%, #1e90ff 100%); /* Teal/Blue */
+    background: #40e0d0; /* Teal */
     animation-delay: 0.5s;
 }
 .birthday-banner .balloon:nth-child(3) {
-    background: radial-gradient(circle at 60% 40%, #ff69b4 70%, #ff1493 100%); /* Pink */
+    background: #ff69b4; /* Pink */
     animation-delay: 1s;
 }
 @keyframes popBalloon {
