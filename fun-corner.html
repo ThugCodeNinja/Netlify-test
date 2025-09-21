@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fun Corner - Voice of Snehal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.body.insertAdjacentHTML('afterbegin', data);
+            });
+    });
+</script>
+</head>
+<body>
+<!-- Header will be loaded dynamically -->
+<div class="hero-banner">
+    <div class="glam-effect"></div>
+    <h2>Welcome to the Voice of Snehal</h2>
+    <p>“Let your journey be as radiant as your spirit.”</p>
+    <p><i class="fa-solid fa-star"></i> Explore, play, and celebrate every moment! <i class="fa-solid fa-star"></i></p>
+</div>
+<main>
+    <section class="content fancy-section">
+        <h2><i class="fa-solid fa-question"></i> Birthday Quiz</h2>
+        <div id="quiz-area"></div>
+        <button id="start-quiz" class="btn">Start Quiz</button>
+    </section>
+    <section class="content fancy-section">
+        <h2><i class="fa-solid fa-brain"></i> Guess the Memory</h2>
+        <div id="memory-game-area"></div>
+    </section>
+    <section class="content fancy-section">
+        <h2><i class="fa-solid fa-chess-board"></i> Birthday Bingo</h2>
+        <div id="bingo-board" class="bingo-board"></div>
+    </section>
+    <section class="content fancy-section">
+        <h2><i class="fa-solid fa-heart"></i> Memory Wall</h2>
+        <input type="text" id="memory-input" class="memory-input" placeholder="Share a memory...">
+        <button id="add-memory" class="btn">Add Memory</button>
+        <ul id="memory-list"></ul>
+    </section>
+</main>
+<script src="script.js"></script>
+</body>
+</html>

@@ -380,3 +380,116 @@ section.visible {
     color: #fff;
     font-weight: bold;
 }
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    background: linear-gradient(135deg, #7c43bd 60%, #b388eb 100%);
+    color: #fff;
+    box-shadow: 2px 0 16px rgba(124,67,189,0.10);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2rem;
+}
+.sidebar-header h1 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #fff;
+}
+.sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.sidebar-nav li {
+    margin: 1.2rem 0;
+    width: 100%;
+}
+.sidebar-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.15rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.7rem 1.2rem;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+}
+.sidebar-nav a:hover, .sidebar-nav a.active {
+    background: #ffd6e0;
+    color: #7c43bd;
+}
+@media (max-width: 900px) {
+    .sidebar {
+        width: 70px;
+        padding-top: 1rem;
+    }
+    .sidebar-header h1 {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    .sidebar-nav a {
+        font-size: 0.95rem;
+        padding: 0.7rem 0.5rem;
+        gap: 0.3rem;
+    }
+    .sidebar-nav li {
+        margin: 0.7rem 0;
+    }
+}
+body {
+    margin-left: 260px;
+    transition: margin-left 0.3s;
+}
+@media (max-width: 900px) {
+    body {
+        margin-left: 70px;
+    }
+}
+.hero-banner {
+    margin-left: 0;
+    margin-top: 0;
+    padding: 2.5rem 2rem 2rem 2rem;
+    background: linear-gradient(90deg, #b388eb 60%, #f3e5f5 100%);
+    color: #2d1e2f;
+    border-radius: 0 0 32px 32px;
+    box-shadow: 0 8px 32px rgba(124,67,189,0.12);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.hero-banner h2 {
+    font-size: 2.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #7c43bd;
+    letter-spacing: 1px;
+}
+.hero-banner p {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #4a2c5c;
+    margin-bottom: 0.5rem;
+}
+.hero-banner .glam-effect {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 100px;
+    background: radial-gradient(circle, #ffd6e0 0%, transparent 70%);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+}
