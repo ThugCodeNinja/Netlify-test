@@ -1,6 +1,9 @@
-<aside class="sidebar">
+<aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
         <h1><i class="fa-solid fa-feather-pointed"></i> Voice of Snehal</h1>
+        <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
     </div>
     <nav>
         <ul class="sidebar-nav">
@@ -14,3 +17,13 @@
         </ul>
     </nav>
 </aside>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.getElementById('sidebar-toggle');
+        toggleBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('collapsed');
+            document.body.classList.toggle('sidebar-collapsed');
+        });
+    });
+</script>
