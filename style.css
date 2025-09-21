@@ -18,7 +18,7 @@ text-decoration: underline;
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 1050;
 }
 .site-header .container {
     display: flex;
@@ -245,139 +245,92 @@ section.visible {
     border-radius: 8px;
 }
 
-.nav-toggle {
-    display: none;
-    background: none;
-    border: none;
+/* --- Bootstrap Offcanvas Sidebar Refactor --- */
+/* Remove custom sidebar styles and use Bootstrap classes for offcanvas navigation */
+
+/* Offcanvas sidebar styles for Bootstrap */
+.offcanvas {
+    background: linear-gradient(120deg, #7c43bd 80%, #b388eb 100%);
     color: #fff;
-    font-size: 2rem;
-    cursor: pointer;
+    box-shadow: 0 4px 24px rgba(124,67,189,0.12);
 }
-.img-modal {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: auto;
-    background: rgba(44, 19, 56, 0.85);
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+.offcanvas-header {
+    border-bottom: 1px solid #b388eb;
 }
-.img-modal .modal-content {
-    margin: 5vh auto;
-    display: block;
-    max-width: 90vw;
-    max-height: 70vh;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(124,67,189,0.18);
-    background: #fff;
+.offcanvas-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
-.img-modal #modal-caption {
+.offcanvas .nav-link {
     color: #fff;
-    margin-top: 1rem;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 500;
+    padding: 0.7rem 1.2rem;
+    border-radius: 8px;
+    margin-bottom: 0.3rem;
+    transition: background 0.2s;
 }
-.close-modal {
-    position: absolute;
-    top: 2vh;
-    right: 4vw;
-    color: #fff;
-    font-size: 2.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 2100;
-    transition: color 0.2s;
+.offcanvas .nav-link.active, .offcanvas .nav-link:hover {
+    background: #ffd6e0;
+    color: #7c43bd;
 }
-.close-modal:hover {
-    color: #ffd6e0;
+.offcanvas .fa {
+    margin-right: 0.7rem;
+    font-size: 1.2rem;
 }
 @media (max-width: 700px) {
-    .site-header .container, .fancy-section {
-        padding: 0 1rem;
-    }
-    .hero-content {
-        padding: 1.2rem 1rem;
+    .offcanvas {
+        width: 80vw !important;
         min-width: unset;
-        max-width: 98vw;
     }
-    .post-grid, .gallery-grid {
-        grid-template-columns: 1fr;
+    .offcanvas .nav-link {
+        font-size: 1.2rem;
+        padding: 1rem 1.5rem;
     }
-    .nav-list {
-        flex-direction: column;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: #7c43bd;
-        display: none;
-        box-shadow: 0 4px 16px rgba(124,67,189,0.08);
-    }
-    .nav-list.open {
-        display: flex;
-    }
-    .nav-toggle {
-        display: block;
-    }
-    .site-header .container {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .sidebar {
-        width: 48px !important;
-        min-width: 48px;
-        padding-top: 0.5rem;
-    }
-    body {
-        margin-left: 48px !important;
-    }
-    .sidebar-header h1 {
-        display: none;
-    }
-    .sidebar-nav a span {
-        display: none;
-    }
-    .birthday-banner {
-        padding: 1.2rem 0.5rem 1.5rem 0.5rem;
-    }
-    .birthday-banner h2 {
-        font-size: 1.3rem;
-        margin-bottom: 0.7rem;
-    }
-    .birthday-banner p {
-        font-size: 1rem;
-        margin-bottom: 0.3rem;
-    }
-    .birthday-banner .balloons {
-        height: 70px;
-        gap: 0.7rem;
-        margin-bottom: 0.5rem;
-    }
-    .birthday-banner .balloon {
-        width: 32px;
-        height: 48px;
+    .offcanvas-title {
+        font-size: 1.2rem;
     }
 }
-.birthday-banner h2, .birthday-banner p {
+/* Remove body margin for sidebar */
+body {
+    margin-left: 0 !important;
+}
+
+/* Birthday banner remains, but ensure it works with Bootstrap grid */
+.birthday-banner {
+    margin: 1.5rem auto;
+    max-width: 900px;
+    background: linear-gradient(90deg, #ffd6e0 60%, #f3e5f5 100%);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(124,67,189,0.12);
+    padding: 2rem 2rem 2.5rem 2rem;
+    text-align: center;
     position: relative;
-    z-index: 2;
 }
 .birthday-banner h2 {
+    font-size: 2rem;
     color: #ffd700;
     text-shadow: 0 2px 8px #7c43bd, 0 0 2px #fff;
     margin-top: 0.5rem;
 }
 .birthday-banner p {
+    font-size: 1.2rem;
     color: #2d1e2f;
     background: rgba(255,255,255,0.85);
     border-radius: 8px;
     display: inline-block;
     padding: 0.2rem 0.7rem;
     margin-top: 0.3rem;
+}
+.birthday-banner .balloons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    height: 90px;
+}
+.birthday-banner .balloon {
+    width: 40px;
+    height: 60px;
 }
