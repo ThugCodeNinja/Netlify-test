@@ -397,14 +397,14 @@ section.visible {
     transition: width 0.3s;
 }
 .sidebar.collapsed {
-    width: 70px;
+    width: 70px !important;
 }
 body {
     margin-left: 260px;
     transition: margin-left 0.3s;
 }
 body.sidebar-collapsed {
-    margin-left: 70px;
+    margin-left: 70px !important;
 }
 .sidebar-header {
     width: 100%;
@@ -412,6 +412,13 @@ body.sidebar-collapsed {
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+}
+.sidebar-header h1 {
+    transition: opacity 0.3s;
+}
+.sidebar.collapsed .sidebar-header h1 {
+    opacity: 0;
+    pointer-events: none;
 }
 .sidebar-toggle {
     background: none;
@@ -447,9 +454,17 @@ body.sidebar-collapsed {
     border-radius: 8px;
     transition: background 0.2s, color 0.2s;
 }
-.sidebar.collapsed .sidebar-header h1,
+.sidebar-nav a i {
+    min-width: 24px;
+    text-align: center;
+}
+.sidebar-nav a span {
+    margin-left: 0.5rem;
+    transition: opacity 0.3s;
+}
 .sidebar.collapsed .sidebar-nav a span {
-    display: none;
+    opacity: 0;
+    pointer-events: none;
 }
 .sidebar.collapsed .sidebar-nav a {
     justify-content: center;
@@ -460,20 +475,11 @@ body.sidebar-collapsed {
     background: #ffd6e0;
     color: #7c43bd;
 }
-@media (max-width: 900px) {
-    .sidebar {
-        width: 70px;
-        padding-top: 1rem;
-    }
-    body {
-        margin-left: 70px;
-    }
-}
 .birthday-banner {
     margin-left: 0;
     margin-top: 0;
     padding: 2.5rem 2rem 2rem 2rem;
-    background: linear-gradient(90deg, #b388eb 60%, #f3e5f5 100%);
+    background: linear-gradient(90deg, #7c43bd 60%, #f3e5f5 100%);
     color: #2d1e2f;
     border-radius: 0 0 32px 32px;
     box-shadow: 0 8px 32px rgba(124,67,189,0.12);
@@ -506,17 +512,19 @@ body.sidebar-collapsed {
 .birthday-banner .balloon {
     width: 60px;
     height: 90px;
-    background: radial-gradient(circle at 60% 40%, #ffd6e0 60%, #b388eb 100%);
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     position: relative;
     animation: popBalloon 2s infinite alternate;
 }
+.birthday-banner .balloon:nth-child(1) {
+    background: radial-gradient(circle at 60% 40%, #ffd700 70%, #ffb347 100%); /* Gold */
+}
 .birthday-banner .balloon:nth-child(2) {
-    background: radial-gradient(circle at 60% 40%, #b388eb 60%, #ffd6e0 100%);
+    background: radial-gradient(circle at 60% 40%, #40e0d0 70%, #1e90ff 100%); /* Teal/Blue */
     animation-delay: 0.5s;
 }
 .birthday-banner .balloon:nth-child(3) {
-    background: radial-gradient(circle at 60% 40%, #f3e5f5 60%, #7c43bd 100%);
+    background: radial-gradient(circle at 60% 40%, #ff69b4 70%, #ff1493 100%); /* Pink */
     animation-delay: 1s;
 }
 @keyframes popBalloon {
